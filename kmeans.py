@@ -16,16 +16,33 @@ PIX_FORMAT = "[{}, {}, {}]"
 
 
 def format_centroid(cent):
-        x,y,z = np.floor(cent[0] * 100) / 100, np.floor(cent[1] * 100) / 100, \
-                np.floor(cent[2] * 100) / 100
-        return PIX_FORMAT.format(str(x),str(y),str(z))
+    """
+    formatting the centroid to a string 
+    :param cent: 
+    :return: 
+    """""
+    x,y,z = np.floor(cent[0] * 100) / 100, np.floor(cent[1] * 100) / 100, \
+            np.floor(cent[2] * 100) / 100
+    return PIX_FORMAT.format(str(x),str(y),str(z))
 
 
 def distance(p1, p2):
+    """
+    euclidean distance calculator
+    :param p1:
+    :param p2:
+    :return:
+    """
     return np.linalg.norm(p1-p2)
 
 
 def choose_centroid(centroids, pixel):
+    """
+    choosing centroid from possible centroids that is the closest to the pixel according to a given distance function.
+    :param centroids:
+    :param pixel:
+    :return:
+    """
     min_dist = np.inf
     centroid_index = -1
     for i in range(len(centroids)):
@@ -38,11 +55,17 @@ def choose_centroid(centroids, pixel):
 
 
 def train(image, k):
+    """
+    training the image by finding the best centroids, then creating the new image with those centroids
+    :param image: data
+    :param k: number of centroids
+    :return:
+    """
     logging.info("k={}:".format(k))
     data_len = len(image)
     centroids = init_centroids(image, k)
     loss = []
-    for epoch in range(EPOCH):
+    for epoch in range(EPOCH+1):
         logger.info("iter {}: {}".format(epoch, ", ".join([format_centroid(c) for c in centroids])))
         sums = [np.zeros(3)] * k
         nums = [0] * k
@@ -60,3 +83,5 @@ def train(image, k):
         new_img.append(centroid)
 
     return np.asarray(new_img), loss
+
+
