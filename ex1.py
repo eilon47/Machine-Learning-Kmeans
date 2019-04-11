@@ -40,6 +40,7 @@ def main():
         if options.img:
             resized = resize_image(new_img, old_size)
             toimage(resized).save("images/img-{}.jpeg".format(k))
+        plt.clf()
 
 
 if __name__ == '__main__':

@@ -74,7 +74,7 @@ def train(image, k):
             centroid, i = choose_centroid(centroids, pixel)
             nums[i] += 1
             sums[i] = sums[i] + pixel
-            iter_loss += distance(pixel, centroid)
+            iter_loss += np.power(distance(pixel, centroid),2)
         centroids = [s/n for s,n in zip(sums,nums)]
         loss.append(iter_loss/data_len)
     new_img = []
