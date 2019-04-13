@@ -1,16 +1,6 @@
 import numpy as np
 from init_centroids import init_centroids
-import logging
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="",
-    handlers=[
-        logging.FileHandler("output.txt"),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger()
 EPOCH = 10
 PIX_FORMAT = "[{}, {}, {}]"
 
@@ -61,12 +51,12 @@ def train(image, k):
     :param k: number of centroids
     :return:
     """
-    logging.info("k={}:".format(k))
+    print("k={}:".format(k))
     data_len = len(image)
     centroids = init_centroids(image, k)
     loss = []
     for epoch in range(EPOCH+1):
-        logger.info("iter {}: {}".format(epoch, ", ".join([format_centroid(c) for c in centroids])))
+        print("iter {}: {}".format(epoch, ", ".join([format_centroid(c) for c in centroids])))
         sums = [np.zeros(3)] * k
         nums = [0] * k
         iter_loss = 0
