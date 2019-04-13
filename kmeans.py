@@ -11,9 +11,16 @@ def format_centroid(cent):
     :param cent: 
     :return: 
     """""
-    x,y,z = np.floor(cent[0] * 100) / 100, np.floor(cent[1] * 100) / 100, \
-            np.floor(cent[2] * 100) / 100
-    return PIX_FORMAT.format(str(x),str(y),str(z))
+    if type(cent) == list:
+        cent = np.asarray(cent)
+    if len(cent.shape) == 1:
+        return ' '.join(str(np.floor(100 * cent) / 100).split()).replace('[ ', '[').replace('\n', ' ').replace(' ]',
+                                                                                                               ']').replace(
+            ' ', ', ')
+    else:
+        return ' '.join(str(np.floor(100 * cent) / 100).split()).replace('[ ', '[').replace('\n', ' ').replace(' ]',
+                                                                                                               ']').replace(
+            ' ', ', ')[1:-1]
 
 
 def distance(p1, p2):
